@@ -38,7 +38,7 @@ def wait_for_movement_completion(ser, cleaned_line):
     return
 
 #Command the CNC machine to move to a point (x,y,z) with specific speed. Gtype could be G0 or G1, G0 moves at maximum possible speed
-def move_to_point(x=None,y=None,z=None,speed=None,gtype="G1"):
+def move_to_point(x=None,y=None,z=None,speed=1000,gtype="G1"):
     if coordinates_within_bounds(x,y,z):
         gcode = get_gcode_path_to_point(x,y,z,speed,gtype)
         print(f"Moved To (X{x}, Y{y}, Z{z}): ", follow_gcode_path(gcode))
@@ -47,7 +47,7 @@ def move_to_point(x=None,y=None,z=None,speed=None,gtype="G1"):
 
 #Returns the gcode to move to a point (x,y,z)
 #You can create a long gcode list to execute all at once instead of doing it line-by-line
-def get_gcode_path_to_point(x=None,y=None,z=None,speed=None,gtype="G1"):
+def get_gcode_path_to_point(x=None,y=None,z=None,speed=1000,gtype="G1"):
     return_string = gtype
     if x != None:
         return_string += f" X{x}"
